@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.mapper.RoomMapper">
+  <resultMap id="BaseResultMap" type="com.yang.model.Room">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="room_id" jdbcType="VARCHAR" property="roomId" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="room_info" jdbcType="VARCHAR" property="roomInfo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from room
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yang.model.Room">
+    insert into room (id, room_id, room_name, 
+      room_info)
+    values (#{id,jdbcType=BIGINT}, #{roomId,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+      #{roomInfo,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yang.model.Room">
+    update room
+    set room_id = #{roomId,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      room_info = #{roomInfo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, room_id, room_name, room_info
+    from room
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, room_id, room_name, room_info
+    from room
+  </select>
+
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, room_id, room_name, room_info
+    from room
+    where room_id = #{roomId,jdbcType=VARCHAR}
+  </select>
+</mapper>
